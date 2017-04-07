@@ -116,6 +116,8 @@ public class ColorWheel extends JComponent {
 		if (display == null)
 			display = createImage();
 		g.drawImage(display, (this.getWidth() - size) / 2, (this.getHeight() - size) / 2, null);
+		g.setColor(Color.white);
+		g.fillRect(absX(cursorX) - 2, absY(cursorY) - 2, 4, 4);
 		g.setColor(Color.black);
 		g.drawRect(absX(cursorX) - 2, absY(cursorY) - 2, 4, 4);
 	}
