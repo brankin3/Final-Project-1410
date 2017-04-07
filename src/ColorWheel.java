@@ -2,10 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
 import javax.swing.JComponent;
+import javax.swing.event.MouseInputAdapter;
 
 public class ColorWheel extends JComponent {
 
@@ -14,7 +12,7 @@ public class ColorWheel extends JComponent {
 	 */
 	private static final long serialVersionUID = 6140004869396463759L;
 
-	private final class SelectionListener implements MouseListener, MouseMotionListener {
+	private final class SelectionListener extends MouseInputAdapter {
 
 		private void mouseAction(MouseEvent arg0) {
 			if (isColorWheel(arg0.getX(), arg0.getY())) {
@@ -25,41 +23,13 @@ public class ColorWheel extends JComponent {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
 		public void mouseDragged(MouseEvent arg0) {
 			mouseAction(arg0);
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseMoved(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
 		public void mousePressed(MouseEvent arg0) {
 			mouseAction(arg0);
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
 		}
 
 	}
