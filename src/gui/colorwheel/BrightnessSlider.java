@@ -1,3 +1,4 @@
+package gui.colorwheel;
 import javax.swing.JComponent;
 
 public class BrightnessSlider extends JComponent {
