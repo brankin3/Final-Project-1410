@@ -14,10 +14,18 @@ public class ColorWheel extends JComponent {
 
 	private final class SelectionListener extends MouseInputAdapter {
 
+		private volatile boolean move = false;
+		private final ColorWheel source;
+
+		public SelectionListener(ColorWheel colorWheel) {
+			source = colorWheel;
+		}
+
 		private void mouseAction(MouseEvent arg0) {
-			if (isColorWheel(arg0.getX(), arg0.getY())) {
-				cursorX = relX(arg0.getX());
-				cursorY = relY(arg0.getY());
+			if (isColorWheel(arg0.getX(), arg0.getY()) && move) {
+				source.cursorX = source.relX(arg0.getX());
+				source.cursorY = source.relY(arg0.getY());
+				move = true;
 				repaint();
 			}
 		}
@@ -29,7 +37,14 @@ public class ColorWheel extends JComponent {
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
+			if (isColorWheel(arg0.getX(), arg0.getY()))
+				move = true;
 			mouseAction(arg0);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			move = false;
 		}
 
 	}
@@ -51,14 +66,17 @@ public class ColorWheel extends JComponent {
 	private int size;
 
 	/**
-	 * Creates a color wheel Component which can be added to a container and used to select a color
-	 * @param radius the radius of the color circle in pixels
+	 * Creates a color wheel Component which can be added to a container and
+	 * used to select a color
+	 * 
+	 * @param radius
+	 *            the radius of the color circle in pixels
 	 */
 	public ColorWheel(int radius) {
 		size = radius * 2;
 		cursorX = radius;
 		cursorY = radius;
-		SelectionListener listener = new SelectionListener();
+		SelectionListener listener = new SelectionListener(this);
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 	}
@@ -91,6 +109,7 @@ public class ColorWheel extends JComponent {
 
 	/**
 	 * Converts the user's selection into a color Object
+	 * 
 	 * @return the selected color
 	 */
 	public Color getSelectedColor() {
@@ -100,6 +119,7 @@ public class ColorWheel extends JComponent {
 
 	/**
 	 * Calculates the HSB for the currently selected color
+	 * 
 	 * @return the float values for the HSB of the selected color
 	 */
 	public float[] getHSB() {
