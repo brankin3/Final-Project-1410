@@ -15,7 +15,7 @@ public class ConnectFourApp{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(500, 500));
 		
-		panel.setLayout(ConnectFour.theGrid);
+		//panel.setLayout(ConnectFour.theGrid);
 		//panel.add(button[col][row]);
 		frame.setVisible(true);
 		frame.add(test);

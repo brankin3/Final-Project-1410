@@ -85,7 +85,7 @@ public class ConnectFourGui extends JFrame {
 		panel_1.add(board, BorderLayout.CENTER);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(ConnectFourGui.class.getResource("/CSIS1410Project/149178975447639.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(ConnectFourGui.class.getResource("/gui/149178975447639.png")));
 		board.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_9 = new JLabel("");

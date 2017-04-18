@@ -75,6 +75,7 @@ public class ConnectFour extends JPanel{
             for (int col = 0; 6 > col; col += 1) {
             	g.setColor(Color.BLACK);
         		g.fillOval(20 + (row*80), 20 + (col*80), 50, 50);
+        		
             }
         }
 		
