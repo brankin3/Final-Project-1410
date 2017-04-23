@@ -1,4 +1,8 @@
-package gui.board;
+package backend;
+
+import gui.board.ConnectFourBoard;
+import gui.board.ConnectFourEvent;
+import gui.board.ConnectFourListener;
 
 public class ConnectFourLogic implements ConnectFourListener {
 

@@ -3,12 +3,13 @@ package gui.board;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
+
+import backend.Player;
 
 public class ConnectFourBoard extends JComponent {
 

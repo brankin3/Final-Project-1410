@@ -2,8 +2,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import backend.ConnectFourLogic;
 import gui.board.ConnectFourBoard;
-import gui.board.ConnectFourLogic;
 
 public class TestStart {
 	public static void main(String... args) {

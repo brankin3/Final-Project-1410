@@ -1,4 +1,4 @@
-package gui.board;
+package backend;
 
 import java.awt.Color;
 
