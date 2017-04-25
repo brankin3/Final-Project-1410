@@ -16,8 +16,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class PlayerSelectDialog extends JDialog {
+	private JTextField myName;
 
 	/**
 	 * Launch the application.
@@ -50,6 +55,14 @@ public class PlayerSelectDialog extends JDialog {
 		}
 		
 		JComboBox<Player> comboBox = new JComboBox<>();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Player newPlayer = new Player();
+				Player.player_records.add(newPlayer);
+				comboBox.setModel(new DefaultComboBoxModel<Player>(Player.player_records.toArray(new Player[0])));
+				comboBox.setSelectedItem(newPlayer);
+			}
+		});
 		comboBox.setModel(new DefaultComboBoxModel<Player>(Player.player_records.toArray(new Player[0])));
 		getContentPane().add(comboBox, BorderLayout.NORTH);
 		
@@ -66,16 +79,75 @@ public class PlayerSelectDialog extends JDialog {
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton New = new JButton("New");
+		New.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Player.save();
+			}
+		});
 		panel_1.add(New);
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel_1.add(btnDelete);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel_1.add(btnCancel);
 		
 		JButton btnSelect = new JButton("Select");
+		btnSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel_1.add(btnSelect);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setPreferredSize(new Dimension(90, 10));
+		getContentPane().add(panel_2, BorderLayout.WEST);
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel labelName = new JLabel("Name:");
+		labelName.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel_2.add(labelName);
+		
+		JLabel plays = new JLabel("Games played:");
+		plays.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel_2.add(plays);
+		
+		JLabel wins = new JLabel("Games won: ");
+		wins.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel_2.add(wins);
+		
+		JLabel color = new JLabel("Color:");
+		color.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel_2.add(color);
+		
+		JPanel panel_3 = new JPanel();
+		getContentPane().add(panel_3, BorderLayout.CENTER);
+		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		myName = new JTextField();
+		panel_3.add(myName);
+		myName.setColumns(10);
+		
+		JLabel myPlays = new JLabel("");
+		panel_3.add(myPlays);
+		
+		JLabel myWins = new JLabel("");
+		panel_3.add(myWins);
+		
+		JLabel myColor = new JLabel("");
+		panel_3.add(myColor);
 
 	}
 
