@@ -3,7 +3,11 @@ package gui.playerselect;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 
@@ -57,10 +61,12 @@ public class PlayerSelectDialog extends JDialog {
 		JComboBox<Player> comboBox = new JComboBox<>();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Player newPlayer = new Player();
+				/*Player newPlayer = new Player();
 				Player.player_records.add(newPlayer);
 				comboBox.setModel(new DefaultComboBoxModel<Player>(Player.player_records.toArray(new Player[0])));
-				comboBox.setSelectedItem(newPlayer);
+				comboBox.setSelectedItem(newPlayer);*/
+				
+				
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel<Player>(Player.player_records.toArray(new Player[0])));
@@ -78,9 +84,41 @@ public class PlayerSelectDialog extends JDialog {
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
+		JPanel panel_3 = new JPanel();
+		getContentPane().add(panel_3, BorderLayout.CENTER);
+		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		myName = new JTextField();
+		panel_3.add(myName);
+		myName.setColumns(10);
+		
+		JLabel myPlays = new JLabel("");
+		panel_3.add(myPlays);
+		
+		JLabel myWins = new JLabel("");
+		panel_3.add(myWins);
+		
+		JLabel myColor = new JLabel("");
+		myColor.setOpaque(true);
+		panel_3.add(myColor);
+		
 		JButton New = new JButton("New");
 		New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Player newPlayer = new Player();
+				newPlayer.name = myName.getText();
+				
+				newPlayer.plays = 2;
+				newPlayer.wins = 3;
+				newPlayer.color = colorWheel.getSelectedColor();
+				
+				myPlays.setText("     " + newPlayer.plays);
+				myWins.setText("     " + newPlayer.wins);
+				myColor.setBackground(newPlayer.color);
+				
+				Player.player_records.add(newPlayer);
+				comboBox.setModel(new DefaultComboBoxModel<Player>(Player.player_records.toArray(new Player[0])));
+				comboBox.setSelectedItem(newPlayer);
 				
 				Player.save();
 			}
@@ -91,6 +129,10 @@ public class PlayerSelectDialog extends JDialog {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				Player.player_records.remove(comboBox.getSelectedIndex());
+				comboBox.removeItemAt(comboBox.getSelectedIndex());
+				Player.save();
+				
 			}
 		});
 		panel_1.add(btnDelete);
@@ -98,6 +140,7 @@ public class PlayerSelectDialog extends JDialog {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 				
 			}
 		});
@@ -107,6 +150,22 @@ public class PlayerSelectDialog extends JDialog {
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				Player newPlayer = new Player();
+				
+				//Player.load(rootPaneCheckingEnabled);
+				
+				comboBox.getSelectedItem();
+				
+				//newPlayer.plays = 5;
+				//newPlayer.wins = 7;
+				//newPlayer.color = newPlayer.color;
+				
+				myPlays.setText("     " + newPlayer.plays);
+				myWins.setText("     " + newPlayer.wins);
+				myColor.setBackground(newPlayer.color);
+				
+				System.out.println(Player.player_records.get(comboBox.getSelectedIndex()));
+				//Player.save();
 			}
 		});
 		panel_1.add(btnSelect);
@@ -132,22 +191,7 @@ public class PlayerSelectDialog extends JDialog {
 		color.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_2.add(color);
 		
-		JPanel panel_3 = new JPanel();
-		getContentPane().add(panel_3, BorderLayout.CENTER);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		myName = new JTextField();
-		panel_3.add(myName);
-		myName.setColumns(10);
-		
-		JLabel myPlays = new JLabel("");
-		panel_3.add(myPlays);
-		
-		JLabel myWins = new JLabel("");
-		panel_3.add(myWins);
-		
-		JLabel myColor = new JLabel("");
-		panel_3.add(myColor);
 
 	}
 

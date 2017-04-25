@@ -102,12 +102,15 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player " + name + " (" + plays + " plays)";
+		return "Player " + name + " (" + plays + " plays) (" + wins + " wins)" + color;
 	}
 
 	public int wins = 0;
 	public int plays = 0;
 	public Color color = Color.WHITE;
 	public String name = "Player";
+	
+
+	
 
 }
