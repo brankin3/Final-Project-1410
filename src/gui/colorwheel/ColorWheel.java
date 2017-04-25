@@ -127,6 +127,15 @@ public class ColorWheel extends JComponent {
 		return new float[] { calculateRotation(cursorX, cursorY, size / 2, size / 2),
 				2 * calculateDistance(cursorX, cursorY, size / 2, size / 2) / size, 1F };
 	}
+	
+	public void setSelectedColor(Color color) {
+		float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+		float h = hsb[0];
+		float s = hsb[1];
+		cursorX = (int) (Math.cos(h*Math.PI*2) * s * (size / 2)) + (size / 2);
+		cursorY = (int) (Math.sin(h*Math.PI*2) * s * (size / 2)) + (size / 2);
+		repaint();
+	}
 
 	private boolean isColorWheel(int x, int y) {
 		return calculateDistance(relX(x), relY(y), size / 2, size / 2) <= (size / 2);

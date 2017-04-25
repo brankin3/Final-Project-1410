@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import backend.ConnectFourLogic;
+import backend.DefaultPlayers;
 import backend.Player;
 import gui.board.ConnectFourBoard;
 
@@ -10,6 +11,10 @@ public class TestStart {
 	public static void main(String... args) {
 		if (Player.load(false))
 			System.out.println("Player profiles successfully loaded!");
+		if (Player.player_records.size() == 0) {
+			Player.player_records.add(DefaultPlayers.player_one);
+			Player.player_records.add(DefaultPlayers.player_two);
+		}
 		Player.save();
 		JFrame frame = new JFrame();
 		ConnectFourBoard cw = new ConnectFourBoard();

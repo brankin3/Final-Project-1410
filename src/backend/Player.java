@@ -72,7 +72,7 @@ public class Player {
 		}
 		return true;
 	}
-	
+
 	public static boolean load(boolean force) {
 		System.out.println("Loading Profiles");
 		if (!force && !can_load)
@@ -100,10 +100,14 @@ public class Player {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Player " + name + " (" + plays + " plays)";
+	}
+
 	public int wins = 0;
 	public int plays = 0;
 	public Color color = Color.WHITE;
 	public String name = "Player";
-	
-	
+
 }

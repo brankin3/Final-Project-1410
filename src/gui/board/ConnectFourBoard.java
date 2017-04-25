@@ -88,7 +88,7 @@ public class ConnectFourBoard extends JComponent {
 		int v_padding = getHeight() / 70;
 		int v_size = (4 * getHeight()) / 35;
 		super.paintComponent(g);
-		g.setColor(Color.blue);
+		g.setColor(Color.black);
 		g.fillRect(0, (v_padding * 2) + v_size, getWidth(), getHeight() - (v_padding * 2) + v_size);
 		g.setColor(Color.pink);
 		g.fillRect(0, 0, getWidth(), (h_padding * 2) + h_size);

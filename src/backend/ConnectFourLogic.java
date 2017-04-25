@@ -9,9 +9,9 @@ public class ConnectFourLogic implements ConnectFourListener {
 	@Override
 	public void eventOccurred(ConnectFourEvent e) {
 		if (player1 == null)
-			player1 = TestPlayers.player_one;
+			player1 = DefaultPlayers.player_one;
 		if (player2 == null)
-			player2 = TestPlayers.player_two;
+			player2 = DefaultPlayers.player_two;
 		if (current_player == null)
 			current_player = player1;
 		if (e.getID() == 1) {
