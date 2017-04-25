@@ -19,12 +19,14 @@ public class ConnectFourLogic implements ConnectFourListener {
 			return;
 		}
 		if (e.getID() == ConnectFourEvent.CLICK) {
-			board.drop(e.getColumn(), current_player);
+			if (!board.drop(e.getColumn(), current_player))
+				return;
 			checkForWin();
 			if (current_player == player1)
 				current_player = player2;
 			else
 				current_player = player1;
+			board.setPreview(e.getColumn(), current_player.color);
 		}
 	}
 

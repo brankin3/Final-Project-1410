@@ -83,10 +83,10 @@ public class ConnectFourBoard extends JComponent {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		int h_padding = getWidth() / 72;
-		int h_size = getWidth() / 9;
-		int v_padding = getHeight() / 72;
-		int v_size = getHeight() / 9;
+		int h_padding = getWidth() / 70;
+		int h_size = (4 * getWidth()) / 35;
+		int v_padding = getHeight() / 70;
+		int v_size = (4 * getHeight()) / 35;
 		super.paintComponent(g);
 		g.setColor(Color.blue);
 		g.fillRect(0, (v_padding * 2) + v_size, getWidth(), getHeight() - (v_padding * 2) + v_size);
@@ -100,14 +100,13 @@ public class ConnectFourBoard extends JComponent {
 					g.setColor(slot[i][j].color);
 				int h_offset = i * ((h_padding * 2) + h_size) + h_padding;
 				int v_offset = (j + 1) * ((v_padding * 2) + v_size) + v_padding;
-				g.fillOval(h_padding + h_offset, v_padding + v_offset, h_size, v_size);
+				g.fillOval(h_offset, v_offset, h_size, v_size);
 			}
 		}
-		if (preview_color != null)
+		if (preview_color != null) {
 			g.setColor(preview_color.darker());
-		else
-			g.setColor(Color.MAGENTA);
-		g.fillOval(preview_column * ((h_padding * 2) + h_size) + (2*h_padding), v_padding, h_size, v_size);
+			g.fillOval(preview_column * ((h_padding * 2) + h_size) + h_padding, v_padding, h_size, v_size);
+		}
 	}
 
 	public Player[][] getBoard() {
@@ -125,13 +124,20 @@ public class ConnectFourBoard extends JComponent {
 		repaint();
 	}
 
-	public void drop(int c, Player player) {
+	public boolean drop(int c, Player player) {
 		for (int r = 5; r > -1; r--) {
 			if (slot[c][r] == null) {
 				slot[c][r] = player;
-				break;
+				repaint();
+				return true;
 			}
 		}
+		return false;
+	}
+
+	public void clear() {
+		for (int i = 0; i < 42; i++)
+			slot[i % 7][i / 7] = null;
 		repaint();
 	}
 
