@@ -58,6 +58,24 @@ public class PlayerSelectDialog extends JDialog {
 				System.out.println(a);
 		}
 		
+		JPanel panel_3 = new JPanel();
+		getContentPane().add(panel_3, BorderLayout.CENTER);
+		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		myName = new JTextField();
+		panel_3.add(myName);
+		myName.setColumns(10);
+		
+		JLabel myPlays = new JLabel("");
+		panel_3.add(myPlays);
+		
+		JLabel myWins = new JLabel("");
+		panel_3.add(myWins);
+		
+		JLabel myColor = new JLabel("");
+		myColor.setOpaque(true);
+		panel_3.add(myColor);
+		
 		JComboBox<Player> comboBox = new JComboBox<>();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -66,6 +84,21 @@ public class PlayerSelectDialog extends JDialog {
 				comboBox.setModel(new DefaultComboBoxModel<Player>(Player.player_records.toArray(new Player[0])));
 				comboBox.setSelectedItem(newPlayer);*/
 				
+				
+				
+				Player newPlayer = new Player();
+				newPlayer = Player.player_records.get(comboBox.getSelectedIndex());
+				
+				//Player.load(rootPaneCheckingEnabled);
+				
+				//comboBox.getSelectedItem();
+				myName.setText(newPlayer.name);
+				myPlays.setText("     " + newPlayer.plays);
+				myWins.setText("     " + newPlayer.wins);
+				myColor.setBackground(newPlayer.color);
+				
+				System.out.println(Player.player_records.get(comboBox.getSelectedIndex()));
+				//Player.save();
 				
 			}
 		});
@@ -84,23 +117,7 @@ public class PlayerSelectDialog extends JDialog {
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JPanel panel_3 = new JPanel();
-		getContentPane().add(panel_3, BorderLayout.CENTER);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		myName = new JTextField();
-		panel_3.add(myName);
-		myName.setColumns(10);
-		
-		JLabel myPlays = new JLabel("");
-		panel_3.add(myPlays);
-		
-		JLabel myWins = new JLabel("");
-		panel_3.add(myWins);
-		
-		JLabel myColor = new JLabel("");
-		myColor.setOpaque(true);
-		panel_3.add(myColor);
 		
 		JButton New = new JButton("New");
 		New.addActionListener(new ActionListener() {
@@ -149,23 +166,11 @@ public class PlayerSelectDialog extends JDialog {
 		JButton btnSelect = new JButton("Select");
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				Player newPlayer = new Player();
+				newPlayer = Player.player_records.get(comboBox.getSelectedIndex());
+				newPlayer.plays++;
+				Player.save();
 				
-				//Player.load(rootPaneCheckingEnabled);
-				
-				comboBox.getSelectedItem();
-				
-				//newPlayer.plays = 5;
-				//newPlayer.wins = 7;
-				//newPlayer.color = newPlayer.color;
-				
-				myPlays.setText("     " + newPlayer.plays);
-				myWins.setText("     " + newPlayer.wins);
-				myColor.setBackground(newPlayer.color);
-				
-				System.out.println(Player.player_records.get(comboBox.getSelectedIndex()));
-				//Player.save();
 			}
 		});
 		panel_1.add(btnSelect);
