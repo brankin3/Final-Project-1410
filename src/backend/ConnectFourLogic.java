@@ -12,12 +12,6 @@ public class ConnectFourLogic implements ConnectFourListener, PlayerSelectListen
 
 	@Override
 	public void eventOccurred(ConnectFourEvent e) {
-		if (player1 == null)
-			player1 = DefaultPlayers.player_one;
-		if (player2 == null)
-			player2 = DefaultPlayers.player_two;
-		if (current_player == null)
-			current_player = player1;
 		if (e.getID() == ConnectFourEvent.MOUSEOVER) {
 			board.setPreview(e.getColumn(), current_player.color);
 			return;
@@ -39,10 +33,12 @@ public class ConnectFourLogic implements ConnectFourListener, PlayerSelectListen
 					break;
 				case JOptionPane.NO_OPTION:
 					board.setVisible(false);
+					board.clear();
 					player1 = null;
 					player2 = null;
 					PlayerSelectDialog psd = new PlayerSelectDialog();
 					psd.addPlayerSelectListener(this);
+					psd.setTitle("Player 1 Select");
 					psd.setVisible(true);
 					return;
 				case JOptionPane.CANCEL_OPTION:
@@ -124,6 +120,7 @@ public class ConnectFourLogic implements ConnectFourListener, PlayerSelectListen
 			return;
 		}
 		if (player2 == null) {
+			current_player = player1;
 			player2 = src.getSelectedPlayer();
 			player1.plays++;
 			player2.plays++;
