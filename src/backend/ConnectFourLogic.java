@@ -124,10 +124,10 @@ public class ConnectFourLogic implements ConnectFourListener, PlayerSelectListen
 			return;
 		}
 		if (player2 == null) {
+			player2 = src.getSelectedPlayer();
 			player1.plays++;
 			player2.plays++;
 			Player.save();
-			player2 = src.getSelectedPlayer();
 			src.setVisible(false);
 			board.setVisible(true);
 			src.dispose();

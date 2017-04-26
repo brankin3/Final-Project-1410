@@ -6,12 +6,14 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.event.MouseInputAdapter;
 
 import backend.Player;
 
-public class ConnectFourBoard extends JFrame {
+public class ConnectFourBoard extends JComponent {
 
 	/**
 	 * 
@@ -68,6 +70,7 @@ public class ConnectFourBoard extends JFrame {
 	private final Player[][] slot;
 	private int preview_column;
 	private Color preview_color;
+	private final JFrame container;
 
 	public ConnectFourBoard() {
 		listeners = new HashSet<>();
@@ -75,10 +78,12 @@ public class ConnectFourBoard extends JFrame {
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 		slot = new Player[7][6];
-		this.setResizable(false);
-		this.setPreferredSize(new Dimension(400, 400));
-		this.pack();
-		this.setLocationRelativeTo(null);
+		container = new JFrame();
+		container.add(this);
+		container.setResizable(false);
+		container.setPreferredSize(new Dimension(400, 400));
+		container.pack();
+		container.setLocationRelativeTo(null);
 	}
 
 	public void addListener(ConnectFourListener l) {
@@ -86,12 +91,12 @@ public class ConnectFourBoard extends JFrame {
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	protected void paintComponent(Graphics g) {
 		int h_padding = getWidth() / 70;
 		int h_size = (4 * getWidth()) / 35;
 		int v_padding = getHeight() / 70;
 		int v_size = (4 * getHeight()) / 35;
-		super.paint(g);
+		super.paintComponent(g);
 		g.setColor(Color.black);
 		g.fillRect(0, (v_padding * 2) + v_size, getWidth(), getHeight() - (v_padding * 2) + v_size);
 		g.setColor(Color.pink);
@@ -128,6 +133,11 @@ public class ConnectFourBoard extends JFrame {
 		repaint();
 	}
 
+	@Override
+	public void setVisible(boolean on) {
+		container.setVisible(on);
+	}
+	
 	public boolean drop(int c, Player player) {
 		for (int r = 5; r > -1; r--) {
 			if (slot[c][r] == null) {
