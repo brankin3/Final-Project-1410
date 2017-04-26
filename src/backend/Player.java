@@ -102,7 +102,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player " + name + " (" + plays + " plays) (" + wins + " wins)" + color;
+		return "Player " + name + " (" + plays + " plays) (" + wins + " wins) ";
 	}
 
 	public int wins = 0;

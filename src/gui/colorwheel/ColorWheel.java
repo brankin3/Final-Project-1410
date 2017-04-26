@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
+
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
 
@@ -27,6 +29,9 @@ public class ColorWheel extends JComponent {
 				source.cursorX = source.relX(arg0.getX());
 				source.cursorY = source.relY(arg0.getY());
 				move = true;
+				for (ColorListener cl : source.listeners) {
+					cl.colorChanged(source);
+				}
 				repaint();
 			}
 		}
@@ -65,6 +70,8 @@ public class ColorWheel extends JComponent {
 	private volatile Image display;
 
 	private int size;
+	
+	private final HashSet<ColorListener> listeners;
 
 	/**
 	 * Creates a color wheel Component which can be added to a container and
@@ -77,6 +84,7 @@ public class ColorWheel extends JComponent {
 		size = radius * 2;
 		cursorX = radius;
 		cursorY = radius;
+		listeners = new HashSet<ColorListener>();
 		SelectionListener listener = new SelectionListener(this);
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
@@ -90,6 +98,10 @@ public class ColorWheel extends JComponent {
 		return relY + ((getHeight() - size) / 2);
 	}
 
+	public void addColorListener(ColorListener cl) {
+		listeners.add(cl);
+	}
+	
 	private Image createImage() {
 		Image drawable = this.createImage(size, size);
 		if (drawable == null)
