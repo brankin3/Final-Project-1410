@@ -3,13 +3,11 @@ package gui.playerselect;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JComboBox;
-import javax.swing.JSpinner;
 
 import backend.Player;
 
@@ -23,6 +21,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -34,37 +34,16 @@ public class PlayerSelectDialog extends JDialog {
 	private static final long serialVersionUID = 2686703077435330915L;
 	private JTextField myName;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PlayerSelectDialog dialog = new PlayerSelectDialog();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	private JComboBox<Player> comboBox;
+	private Set<PlayerSelectListener> listeners;
 
 	/**
 	 * Create the dialog.
 	 */
 	public PlayerSelectDialog() {
+		listeners = new HashSet<>();
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-
-		if (Player.load(false)) {
-			System.out.println("Profiles Loaded...");
-			for (Player a : Player.player_records)
-				System.out.println(a);
-		}
 
 		JPanel panel_3 = new JPanel();
 		getContentPane().add(panel_3, BorderLayout.CENTER);
@@ -188,6 +167,7 @@ public class PlayerSelectDialog extends JDialog {
 				newPlayer.color = colorWheel.getSelectedColor();
 				Player.save();
 				repaint();
+				notifyListeners();
 			}
 		});
 		panel_1.add(btnSelect);
@@ -205,7 +185,7 @@ public class PlayerSelectDialog extends JDialog {
 		plays.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_2.add(plays);
 
-		JLabel wins = new JLabel("Games won: ");
+		JLabel wins = new JLabel("Games won:");
 		wins.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_2.add(wins);
 
@@ -222,6 +202,15 @@ public class PlayerSelectDialog extends JDialog {
 			colorWheel.setSelectedColor(newPlayer.color);
 		}
 
+	}
+
+	private void notifyListeners() {
+		for (PlayerSelectListener psl : listeners)
+			psl.playerSelected(this);
+	}
+
+	public void addPlayerSelectListener(PlayerSelectListener psl) {
+		listeners.add(psl);
 	}
 
 	public Player getSelectedPlayer() {

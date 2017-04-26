@@ -78,6 +78,7 @@ public class Player {
 		if (!force && !can_load)
 			return false;
 		try {
+			player_records.clear();
 			ExtendedPrimitiveReader epr = new ExtendedPrimitiveReader(new FileInputStream(data_location), 16);
 			int playerCounts = epr.readInt();
 			for (int i = 0; i < playerCounts; i++) {
